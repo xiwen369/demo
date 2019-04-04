@@ -1,0 +1,26 @@
+server:
+  port: 9010
+spring:
+  application:
+    name: demo
+  swagger:
+    basePackage: com.example.demo.controller
+    title: demo
+  datasource:
+    url: jdbc:mysql://132.232.219.246/sys?useSSL=false
+    username: whk115
+    password: whk115WHK
+    dbcp:
+      validation-query: SELECT 1
+      test-while-idle: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+logging:
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.springms: DEBUG
