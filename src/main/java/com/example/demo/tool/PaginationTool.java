@@ -14,17 +14,22 @@ import java.util.Map;
 public class PaginationTool {
     Logger logger = LoggerFactory.getLogger(PaginationTool.class);
 
-    public Map pagination(int page, int pageSize, int count) {
-        Map<String,Object> map = new HashMap();
-        logger.info("page=" + page, ",pageSize=" + pageSize + ",count=" + count);
+    public Map pagination(int currentPage, int pageSize, int count) {
+        Map<String, Object> map = new HashMap();
+        int currentCount;//当前数,用于sql的limit
+        //先计算出总页数
+        logger.info("page=" + currentPage, ",pageSize=" + pageSize + ",count=" + count);
         int totalPages = count % pageSize > 0 ? count / pageSize + 1 : count / pageSize;
         logger.info("totalPages=" + totalPages);
-        map.put("totalPages",totalPages);
-
-
-
-
-        return null;
+        if (currentPage < 1) {
+            currentPage = 1;
+        } else if (currentPage > totalPages) {
+            currentPage = totalPages;
+        }
+        map.put("totalPages", totalPages);//总页数
+        currentCount = (currentPage - 1) * pageSize;
+        map.put("currentCount", currentCount);//当前数
+        return map;
     }
 
 }
