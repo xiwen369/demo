@@ -52,8 +52,7 @@ public class UserServiceImpl implements UserService {
             userRepository.delete(id);
         }catch (Exception e){
             logger.error("删除用户异常="+e);
-            e.printStackTrace();
-            Desc = "删除失败!";
+            Desc = "您所删除的用户不存在!";
         }
         return Desc;
     }
