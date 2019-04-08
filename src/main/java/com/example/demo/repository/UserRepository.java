@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     //查询所有会员
     @Query(value = "SELECT * FROM user limit ?1,?2",nativeQuery = true)
     List<User> queryUser(int page, int pageSize);
+
+
 }

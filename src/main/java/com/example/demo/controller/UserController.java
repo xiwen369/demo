@@ -2,15 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.User;
 import com.example.demo.service.impl.UserServiceImpl;
+import com.example.demo.tool.PaginationTool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -26,15 +24,8 @@ public class UserController {
     @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
     public String saveUser(@RequestBody User user) {
         logger.info("入参为=" + user);
-//        try {
-//            userRepository.save(user);
-//            return "0000";
-//        } catch (Exception e) {
-//            logger.info("报错信息为=" + e);
-//            e.printStackTrace();
-//            return "9999";
-//        }
-        return null;
+        String Desc = userServiceImpl.addUser(user);
+        return Desc;
     }
 
     /**
@@ -46,26 +37,23 @@ public class UserController {
     @RequestMapping(value = "findUser", method = RequestMethod.POST)
     public List<User> findUser(@RequestBody Map map) {
         logger.info("入参为=" + map);
+        int count = userServiceImpl.findCount();
+        int page = (int) map.get("page");
+        int pageSize = (int) map.get("pageSize");
+        PaginationTool paginationTool = new PaginationTool();
+        map.putAll(paginationTool.pagination(page, pageSize, count));
+        logger.info("分页工具类返回的参数=" + map);
         List<User> userList = userServiceImpl.findAllUser(map);
         logger.info("出参为=" + userList);
         return userList;
     }
 
     @ApiOperation(value = "删除用户", notes = "入参为用户id")
-    @RequestMapping(value = "deleteUser", method = RequestMethod.POST)
-    public String deleteUser(@RequestBody Map map) {
-        logger.info("入参为=" + map);
-        int id = (int) map.get("id");
-        logger.info("id=" + id);
-//        try {
-//            userRepository.delete(id);
-//            return "0000";
-//        } catch (Exception e) {
-//            logger.info("报错信息为=" + e);
-//            e.printStackTrace();
-//            return "9999";
-//        }
-        return null;
+    @GetMapping("/hello/{id}")
+    public String deleteUser(@PathVariable("id") int id) {
+        logger.info("入参为=" + id);
+        String Desc = userServiceImpl.deleteUser(id);
+        return Desc;
     }
 
 }

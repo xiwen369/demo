@@ -21,19 +21,54 @@ public class UserServiceImpl implements UserService {
     public List<User> findAllUser(Map map) {
         logger.info("入参为=" + map);
         int flag = 0;
-        int page = 0;
+        int page = 1;
         int pageSize = 5;
+        int currentCount;
         List<User> userList = null;
         if (!map.isEmpty()) {
             flag = (int) map.get("flag");
             page = (int) map.get("page");
+            currentCount = (int) map.get("currentCount");
             pageSize = (int) map.get("pageSize");
-            logger.info("flag=" + flag + ",page=" + page + ",pageSize=" + pageSize);
+            logger.info("flag=" + flag + ",page=" + page + ",pageSize=" + pageSize + ",currentCount=" + currentCount);
             if (flag == 0) {
-                userList = userRepository.queryUser(page, pageSize);
+                userList = userRepository.queryUser(currentCount, pageSize);
             }
         }
         logger.info("userList=" + userList);
         return userList;
     }
+
+    @Override
+    public int findCount() {
+        int count = (int) userRepository.count();
+        return count;
+    }
+
+    @Override
+    public String deleteUser(int id) {
+        String Desc = "删除成功!";
+        try {
+            userRepository.delete(id);
+        }catch (Exception e){
+            logger.error("删除用户异常="+e);
+            e.printStackTrace();
+            Desc = "删除失败!";
+        }
+        return Desc;
+    }
+
+    @Override
+    public String addUser(User user) {
+        String Desc = "添加/修改成功!";
+        try {
+            userRepository.save(user);
+        }catch (Exception e){
+            logger.error("添加/修改用户异常="+e);
+            e.printStackTrace();
+            Desc = "添加/修改成功!";
+        }
+        return Desc;
+    }
+
 }
