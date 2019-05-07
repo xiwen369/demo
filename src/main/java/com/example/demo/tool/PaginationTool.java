@@ -12,9 +12,13 @@ import java.util.Map;
  * int page 当前页, int pageSize 页大小, int count 数据总条数
  */
 public class PaginationTool {
-    Logger logger = LoggerFactory.getLogger(PaginationTool.class);
+    //封装无参的构造方法,使其不能被实例化,单例模式
+    private PaginationTool(){
 
-    public Map pagination(int currentPage, int pageSize, int count) {
+    }
+    static Logger logger = LoggerFactory.getLogger(PaginationTool.class);
+
+    public static Map pagination(int currentPage, int pageSize, int count) {
         Map<String, Object> map = new HashMap();
         int currentCount;//当前数,用于sql的limit
         //先计算出总页数

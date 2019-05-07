@@ -7,9 +7,9 @@ spring:
     basePackage: com.example.demo.controller
     title: demo
   datasource:
-    url: jdbc:mysql://132.232.219.246/sys?useSSL=false
-    username: whk115
-    password: whk115WHK
+    url: jdbc:mysql://localhost:3306/test?useSSL=false
+    username: root
+    password: root
     dbcp:
       validation-query: SELECT 1
       test-while-idle: true

@@ -40,8 +40,7 @@ public class UserController {
         int count = userServiceImpl.findCount();
         int page = (int) map.get("page");
         int pageSize = (int) map.get("pageSize");
-        PaginationTool paginationTool = new PaginationTool();
-        map.putAll(paginationTool.pagination(page, pageSize, count));
+        map.putAll(PaginationTool.pagination(page, pageSize, count));
         logger.info("分页工具类返回的参数=" + map);
         List<User> userList = userServiceImpl.findAllUser(map);
         logger.info("出参为=" + userList);

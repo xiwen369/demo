@@ -7,8 +7,7 @@ import java.util.Map;
 public class PaginationToolTest {
     @Test
     public void pagination() throws Exception {
-        PaginationTool paginationTool = new PaginationTool();
-        Map<String, Object> map = paginationTool.pagination(99, 5, 31);
+        Map<String, Object> map = PaginationTool.pagination(99, 5, 31);
         System.out.println(map);
     }
 
